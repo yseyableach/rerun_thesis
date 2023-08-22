@@ -66,10 +66,21 @@ def get_wiki_news_embedding(corpus: list, model_file: str):
     return np.array(sentence_vectors)
 
 #%% Train doc2vec & Train Fasttext
-def generate_model():
-    corpus_name="jmir"
-    jmir_df = pd.read_csv("jmir/new_final_jmir_vertical.csv")
-    corpus = jmir_df['pre_sent'].values.tolist()
+def generate_model(generate_corpus:str):
+    corpus = None
+    corpus_name= None
+    if generate_corpus=='jmir':
+        corpus_name="jmir"
+        jmir_df = pd.read_csv("jmir/new_final_jmir_vertical.csv")
+        corpus = jmir_df['pre_sent'].values.tolist()
+        
+    if generate_corpus=='pubmed':
+        corpus_name ='pubmed'
+        pubmed_df = pd.read_csv('pubmed20k/train_Pubmed_didnot_vectorize_just_data_.csv',encoding='big5')
+        
+        corpus = pubmed_df['preprocessing_corpus'].values.tolist()
+    
+
     train_and_save_doc2vec_model(corpus,corpus_name,vector_size=50)
     print("Model trained and saved.")
     vector_size = [50,100,200]
