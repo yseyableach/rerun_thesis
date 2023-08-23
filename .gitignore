@@ -1,6 +1,6 @@
 Dataset/embedding_models/doc2vec_models
 Dataset/embedding_models/fasttext_models
-
+*.csv
 *.pyc
 *.pkl
 *.vec
